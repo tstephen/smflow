@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1bw71zf" targetNamespace="http://zaizi.com/sales-marketing" exporter="Camunda Modeler" exporterVersion="3.1.2">
+  <bpmn:process id="RunEvent" name="Run event" isExecutable="true" camunda:candidateStarterGroups="marketing">
+    <bpmn:startEvent id="StartEvent_1" name="Event proposal approved">
+      <bpmn:outgoing>SequenceFlow_06stjhc</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_1nobeq6" name="Recruit speakers and prepare content">
+      <bpmn:incoming>SequenceFlow_06stjhc</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_09f3wjn</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_06stjhc" sourceRef="StartEvent_1" targetRef="Task_1nobeq6" />
+    <bpmn:sequenceFlow id="SequenceFlow_09f3wjn" sourceRef="Task_1nobeq6" targetRef="Task_1yvwzyq" />
+    <bpmn:task id="Task_000yxuv" name="Deliver webinar">
+      <bpmn:incoming>SequenceFlow_1hcq2ov</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1l8786p</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_1hcq2ov" sourceRef="Task_1yvwzyq" targetRef="Task_000yxuv" />
+    <bpmn:sequenceFlow id="SequenceFlow_1l8786p" sourceRef="Task_000yxuv" targetRef="CallActivity_0ip15vq" />
+    <bpmn:sequenceFlow id="SequenceFlow_1nfb5fc" sourceRef="Task_0hwre10" targetRef="EndEvent_0a9sqon" />
+    <bpmn:endEvent id="EndEvent_0a9sqon">
+      <bpmn:incoming>SequenceFlow_1nfb5fc</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:callActivity id="Task_0hwre10" name="Follow-up (personalised)" calledElement="FollowUpEvent">
+      <bpmn:extensionElements>
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0v0n5r4</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1nfb5fc</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${JSON(contacts).elements()}" camunda:elementVariable="contact" />
+    </bpmn:callActivity>
+    <bpmn:sequenceFlow id="SequenceFlow_0v0n5r4" sourceRef="CallActivity_0ip15vq" targetRef="Task_0hwre10" />
+    <bpmn:task id="CallActivity_0ip15vq" name="Follow-up &#10;(en mass)">
+      <bpmn:incoming>SequenceFlow_1l8786p</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0v0n5r4</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:callActivity id="Task_1yvwzyq" name="Attract audience" calledElement="AttractAudience">
+      <bpmn:extensionElements>
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_09f3wjn</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1hcq2ov</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:textAnnotation id="TextAnnotation_0g1hcqk">
+      <bpmn:text>e.g. Send email with webinar recording. 
+Different content according to whether attended or merely registered</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1kts3nq" sourceRef="CallActivity_0ip15vq" targetRef="TextAnnotation_0g1hcqk" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="RunEvent">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="161" y="146" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1nobeq6_di" bpmnElement="Task_1nobeq6">
+        <dc:Bounds x="265" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_06stjhc_di" bpmnElement="SequenceFlow_06stjhc">
+        <di:waypoint x="215" y="121" />
+        <di:waypoint x="265" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_09f3wjn_di" bpmnElement="SequenceFlow_09f3wjn">
+        <di:waypoint x="365" y="121" />
+        <di:waypoint x="415" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_000yxuv_di" bpmnElement="Task_000yxuv">
+        <dc:Bounds x="565" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1hcq2ov_di" bpmnElement="SequenceFlow_1hcq2ov">
+        <di:waypoint x="515" y="121" />
+        <di:waypoint x="565" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1l8786p_di" bpmnElement="SequenceFlow_1l8786p">
+        <di:waypoint x="665" y="121" />
+        <di:waypoint x="707" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1nfb5fc_di" bpmnElement="SequenceFlow_1nfb5fc">
+        <di:waypoint x="949" y="121" />
+        <di:waypoint x="1004" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_0a9sqon_di" bpmnElement="EndEvent_0a9sqon">
+        <dc:Bounds x="1004" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_1yfmps3_di" bpmnElement="Task_0hwre10">
+        <dc:Bounds x="849" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0v0n5r4_di" bpmnElement="SequenceFlow_0v0n5r4">
+        <di:waypoint x="807" y="121" />
+        <di:waypoint x="849" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="TextAnnotation_0g1hcqk_di" bpmnElement="TextAnnotation_0g1hcqk">
+        <dc:Bounds x="759" y="202" width="184" height="79" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1kts3nq_di" bpmnElement="Association_1kts3nq">
+        <di:waypoint x="788" y="161" />
+        <di:waypoint x="820" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_11usmyu_di" bpmnElement="CallActivity_0ip15vq">
+        <dc:Bounds x="707" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="CallActivity_1pkw7o5_di" bpmnElement="Task_1yvwzyq">
+        <dc:Bounds x="415" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

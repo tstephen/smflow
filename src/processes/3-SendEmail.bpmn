@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1rua7hk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.1.2">
+  <bpmn:process id="Process_1dp8ew8" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_153rt2y</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="Task_1xjmp2m" name="Create campaign">
+      <bpmn:incoming>SequenceFlow_153rt2y</bpmn:incoming>
+      <bpmn:property id="Property_1osh4ak" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0grwi89">
+        <bpmn:sourceRef>DataObjectReference_0uuoog6</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1osh4ak</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0shahqk">
+        <bpmn:targetRef>DataObjectReference_118tqzv</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="SequenceFlow_153rt2y" sourceRef="StartEvent_1" targetRef="Task_1xjmp2m" />
+    <bpmn:dataObjectReference id="DataObjectReference_0uuoog6" dataObjectRef="DataObject_0g940dj" />
+    <bpmn:dataObject id="DataObject_0g940dj" />
+    <bpmn:dataObjectReference id="DataObjectReference_118tqzv" name="campaign id" dataObjectRef="DataObject_07bn2va" />
+    <bpmn:dataObject id="DataObject_07bn2va" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1dp8ew8">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1xjmp2m_di" bpmnElement="Task_1xjmp2m">
+        <dc:Bounds x="265" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_153rt2y_di" bpmnElement="SequenceFlow_153rt2y">
+        <di:waypoint x="215" y="121" />
+        <di:waypoint x="265" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="DataObjectReference_0uuoog6_di" bpmnElement="DataObjectReference_0uuoog6">
+        <dc:Bounds x="265" y="210" width="36" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataObjectReference_118tqzv_di" bpmnElement="DataObjectReference_118tqzv">
+        <dc:Bounds x="332" y="210" width="36" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="320" y="267" width="60" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0shahqk_di" bpmnElement="DataOutputAssociation_0shahqk">
+        <di:waypoint x="327" y="161" />
+        <di:waypoint x="342" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0grwi89_di" bpmnElement="DataInputAssociation_0grwi89">
+        <di:waypoint x="290" y="210" />
+        <di:waypoint x="304" y="161" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
