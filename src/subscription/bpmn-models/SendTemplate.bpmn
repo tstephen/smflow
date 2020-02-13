@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://bpmn.io/schema/bpmn">
+  <process id="SendTemplate" name="Send template" isExecutable="true">
+    <startEvent id="StartEvent_1" flowable:initiator="initiator" flowable:formKey="TestRecordEnquiryForm" flowable:formFieldValidation="true"></startEvent>
+    <sequenceFlow id="SequenceFlow_1sf4d6q" sourceRef="StartEvent_1" targetRef="fetchTemplate"></sequenceFlow>
+    <sequenceFlow id="SequenceFlow_1yd7180" sourceRef="fetchTemplate" targetRef="Task_1edh9g5"></sequenceFlow>
+    <sequenceFlow id="SequenceFlow_0xdt38c" sourceRef="Task_1edh9g5" targetRef="sendEmail"></sequenceFlow>
+    <endEvent id="EndEvent_17e1z9e"></endEvent>
+    <sequenceFlow id="SequenceFlow_0of6a62" sourceRef="sendEmail" targetRef="EndEvent_17e1z9e"></sequenceFlow>
+    <scriptTask id="Task_1edh9g5" name="Merge data into template" scriptFormat="JavaScript" flowable:autoStoreVariables="false">
+      <script><![CDATA[var mailBody = execution.getVariable('template');
+
+execution.setVariable('mailBody', mailBody);]]></script>
+    </scriptTask>
+    <serviceTask id="fetchTemplate" name="Fetch template" flowable:type="http">
+      <extensionElements>
+        <flowable:field name="requestMethod">
+          <flowable:string><![CDATA[GET]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="requestUrl">
+          <flowable:string><![CDATA[https://knowprocess.com/templates/NewSubscribers.txt]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="responseVariableName">
+          <flowable:string><![CDATA[template]]></flowable:string>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <serviceTask id="sendEmail" name="Send email" flowable:type="mail">
+      <extensionElements>
+        <flowable:field name="to">
+          <flowable:expression><![CDATA[${addressee}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="from">
+          <flowable:string><![CDATA[info@knowprocess.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="subject">
+          <flowable:string><![CDATA[This is a test]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="text">
+          <flowable:expression><![CDATA[${mailBody}]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SendTemplate">
+    <bpmndi:BPMNPlane bpmnElement="SendTemplate" id="BPMNPlane_SendTemplate">
+      <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="BPMNShape_StartEvent_1">
+        <omgdc:Bounds height="30.0" width="30.0" x="179.0" y="99.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_17e1z9e" id="BPMNShape_EndEvent_17e1z9e">
+        <omgdc:Bounds height="28.0" width="28.0" x="752.0" y="99.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_1edh9g5" id="BPMNShape_Task_1edh9g5">
+        <omgdc:Bounds height="80.0" width="100.0" x="430.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="fetchTemplate" id="BPMNShape_fetchTemplate">
+        <omgdc:Bounds height="80.0" width="100.0" x="270.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendEmail" id="BPMNShape_sendEmail">
+        <omgdc:Bounds height="80.0" width="100.0" x="590.0" y="77.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1sf4d6q" id="BPMNEdge_SequenceFlow_1sf4d6q">
+        <omgdi:waypoint x="208.94571172268462" y="114.3558536039462"></omgdi:waypoint>
+        <omgdi:waypoint x="269.99999999999943" y="115.8095238095238"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1yd7180" id="BPMNEdge_SequenceFlow_1yd7180">
+        <omgdi:waypoint x="369.95000000000005" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="430.0" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_0xdt38c" id="BPMNEdge_SequenceFlow_0xdt38c">
+        <omgdi:waypoint x="529.9499999999471" y="117.0"></omgdi:waypoint>
+        <omgdi:waypoint x="589.9999999999831" y="117.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_0of6a62" id="BPMNEdge_SequenceFlow_0of6a62">
+        <omgdi:waypoint x="689.9499999999996" y="115.41269841269842"></omgdi:waypoint>
+        <omgdi:waypoint x="752.0069118664035" y="113.4426386457921"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>

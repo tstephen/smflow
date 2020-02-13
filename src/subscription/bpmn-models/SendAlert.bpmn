@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:flowable="http://flowable.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://knowprocess.com/alerts">
+  <process id="SendAlert" name="Send an alert by email" isExecutable="true">
+    <documentation>Email an alert of an event.</documentation>
+    <dataObject id="DO_SendAlert_1" name="Data Object" itemSubjectRef="xsd:string">
+      <extensionElements>
+        <flowable:value></flowable:value>
+      </extensionElements>
+    </dataObject>
+    <serviceTask id="sendAlert" name="Send alert" flowable:type="mail">
+      <extensionElements>
+        <flowable:field name="to">
+          <flowable:expression><![CDATA[${addressee}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="from">
+          <flowable:string><![CDATA[info@knowprocess.com]]></flowable:string>
+        </flowable:field>
+        <flowable:field name="subject">
+          <flowable:expression><![CDATA[${subject}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="text">
+          <flowable:expression><![CDATA[${message}]]></flowable:expression>
+        </flowable:field>
+        <flowable:field name="html">
+          <flowable:expression><![CDATA[${message}]]></flowable:expression>
+        </flowable:field>
+      </extensionElements>
+    </serviceTask>
+    <sequenceFlow id="_5" sourceRef="sendAlert" targetRef="endEvent"></sequenceFlow>
+    <endEvent id="endEvent" name="End event"></endEvent>
+    <startEvent id="startEvent" name="Start Event" flowable:initiator="initiator"></startEvent>
+    <sequenceFlow id="_8" sourceRef="startEvent" targetRef="sendAlert"></sequenceFlow>
+    <textAnnotation id="_7">
+      <text>SEND ALERT BY EMAIL</text>
+    </textAnnotation>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_SendAlert">
+    <bpmndi:BPMNPlane bpmnElement="SendAlert" id="BPMNPlane_SendAlert">
+      <bpmndi:BPMNShape bpmnElement="sendAlert" id="BPMNShape_sendAlert">
+        <omgdc:Bounds height="83.0" width="119.0" x="175.5000000000001" y="126.5"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endEvent" id="BPMNShape_endEvent">
+        <omgdc:Bounds height="32.0" width="32.0" x="378.0000000000002" y="152.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="startEvent" id="BPMNShape_startEvent">
+        <omgdc:Bounds height="32.0" width="32.0" x="60.0" y="152.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" id="BPMNShape__7">
+        <omgdc:Bounds height="39.0" width="199.0" x="60.0" y="42.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_5" id="BPMNEdge__5">
+        <omgdi:waypoint x="294.44999999998765" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="378.0000000000002" y="168.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8" id="BPMNEdge__8">
+        <omgdi:waypoint x="91.94999922863464" y="168.0"></omgdi:waypoint>
+        <omgdi:waypoint x="175.4999999999828" y="168.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
