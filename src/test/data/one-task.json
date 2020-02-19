@@ -1,0 +1,2 @@
+{ "processDefinitionKey":"oneTaskProcess", "businessKey":"", "returnVariables":false, "variables": [ { "name":"contactEmail", "value":"tstephenson@zaizi.com" } ] }
+
