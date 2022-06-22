@@ -20,6 +20,7 @@ The following scripts in (`src/scripts` dir) will help manage the server:
 
 - `deploy-app.sh path/to/app.zip`: deploy an app zip into the server
 - `get-pds.sh`: return list of deployed process definitions TIP: pass result to `grep`
+  - `get-pds.sh | jq ' .data[] | { id: .id }'` pipe proc defs through [jq](https://stedolan.github.io/jq/) showing only ids
 - `start-instance.sh path/to/data.json`: start a process instance with the specified payload
 
 Event planning
